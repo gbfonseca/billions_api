@@ -43,6 +43,9 @@ func TestShouldReturnAnWalletOnSuccess(t *testing.T) {
 
 	controllers.CreateWalletController(ctx)
 
-	assert.Equal(t, http.StatusCreated, w.Code)
+	var wallet wallet.Wallet
+	json.Unmarshal(w.Body.Bytes(), &wallet)
 
+	assert.Equal(t, http.StatusCreated, w.Code)
+	assert.NotEmpty(t, wallet.Id)
 }

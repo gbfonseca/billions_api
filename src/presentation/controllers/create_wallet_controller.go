@@ -18,7 +18,8 @@ func CreateWalletController(ctx *gin.Context) {
 	}
 
 	ctx.JSON(http.StatusCreated, gin.H{
-		"xpto": "123",
+		"name": "123",
+		"id":   "1",
 	})
 
 }
