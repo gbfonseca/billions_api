@@ -3,14 +3,14 @@ package controllers
 import (
 	"net/http"
 
-	wallet "billions_api/main/src/domain/usecases/wallet"
+	"billions_api/main/src/modules/wallet/models"
 
 	"github.com/gin-gonic/gin"
 )
 
 func CreateWalletController(ctx *gin.Context) {
 
-	var requestBody wallet.AddWallet
+	var requestBody models.AddWallet
 
 	err := ctx.ShouldBindJSON(&requestBody)
 	if err != nil {

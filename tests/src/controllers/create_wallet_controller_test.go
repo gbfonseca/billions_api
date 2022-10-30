@@ -8,8 +8,8 @@ import (
 	"net/http/httptest"
 	"testing"
 
-	wallet "billions_api/main/src/domain/usecases/wallet"
-	"billions_api/main/src/presentation/controllers"
+	"billions_api/main/src/modules/wallet/controllers"
+	"billions_api/main/src/modules/wallet/models"
 	fixtures_test "billions_api/main/tests/fixtures"
 
 	"github.com/stretchr/testify/assert"
@@ -18,7 +18,7 @@ import (
 func TestShouldReturnBadRequestOnInvalidBody(t *testing.T) {
 
 	w := httptest.NewRecorder()
-	addWallet := wallet.AddWallet{}
+	addWallet := models.AddWallet{}
 	jsonValue, _ := json.Marshal(addWallet)
 
 	ctx := fixtures_test.GetTestGinContext(w)
@@ -33,7 +33,7 @@ func TestShouldReturnBadRequestOnInvalidBody(t *testing.T) {
 func TestShouldReturnAnWalletOnSuccess(t *testing.T) {
 
 	w := httptest.NewRecorder()
-	addWallet := wallet.AddWallet{
+	addWallet := models.AddWallet{
 		Name: "My new wallet",
 	}
 	jsonValue, _ := json.Marshal(addWallet)
@@ -43,7 +43,7 @@ func TestShouldReturnAnWalletOnSuccess(t *testing.T) {
 
 	controllers.CreateWalletController(ctx)
 
-	var wallet wallet.Wallet
+	var wallet models.Wallet
 	json.Unmarshal(w.Body.Bytes(), &wallet)
 
 	assert.Equal(t, http.StatusCreated, w.Code)
